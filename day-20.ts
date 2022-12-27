@@ -1,4 +1,3 @@
-
 type ReindeerType = 'Nuclear' | 'Electric' | 'Gasoline' | 'Diesel'
 
 interface ReindeerWeight {
@@ -21,18 +20,21 @@ interface ReindeerGift {
   reindeers: ReindeerCount[]
 }
 
+
 function howManyReindeers(reindeerTypes: ReindeerWeight[], gifts: Gift[]) {
   // Sort reindeerTypes by weightCapacity
   reindeerTypes.sort((a,b) => b.weightCapacity - a.weightCapacity)
-  
+
+  // Function to calculate each reindeers needed for each country
   const getReindeers = (weight: number): ReindeerCount[] => {
     // reindeerTypes: howManyReindeers scope
     const reindeerCount: ReindeerCount[] = []
     const filterTypes = reindeerTypes.filter(el => el.weightCapacity < weight)
-    const types = filterTypes.map(el => el.type)
+    const types: ReindeerType[] = filterTypes.map(el => el.type)
     let weightCapacities: number[] = filterTypes.map(el => el.weightCapacity)
     let accumulator: number = 0
 
+	// Calculate needed Reindeers
     types.map(reindeerType => {
       const sumCapacities: number = weightCapacities.reduce((acc, w) => acc + w)
       const neededReindeers = Math.floor(weight / sumCapacities)
