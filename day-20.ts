@@ -29,10 +29,11 @@ function howManyReindeers(reindeerTypes: ReindeerWeight[], gifts: Gift[]) {
     // reindeerTypes: howManyReindeers scope
     const reindeerCount: ReindeerCount[] = []
     const filterTypes = reindeerTypes.filter(el => el.weightCapacity < weight)
+    const types = filterTypes.map(el => el.type)
     let weightCapacities: number[] = filterTypes.map(el => el.weightCapacity)
     let accumulator: number = 0
 
-    for (const {type: reindeerType} of filterTypes) {
+    types.map(reindeerType => {
       const sumCapacities: number = weightCapacities.reduce((acc, w) => acc + w)
       const neededReindeers = Math.floor(weight / sumCapacities)
 
@@ -45,7 +46,7 @@ function howManyReindeers(reindeerTypes: ReindeerWeight[], gifts: Gift[]) {
       })
 
       weightCapacities.shift()
-    }
+    })
 
     return reindeerCount
   }
